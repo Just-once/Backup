@@ -1,0 +1,36 @@
+<%- partial('_partial/head') %>
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 9999; pointer-events: none;" ></canvas>
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <%- partial('_partial/left-col', null, {cache: !config.relative_link}) %>
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <%- partial('_partial/mobile-nav', null, {cache: !config.relative_link}) %>
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <%- body %>
+          </div>
+        </div>
+      </div>
+      <%- partial('_partial/footer') %>
+    </div>
+    <%- partial('_partial/after-footer') %>
+    <%- partial('_partial/tools') %>
+    <%- partial('_partial/viewer') %>
+  </div>
+  <script src="https://cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script src="https://script-1256884783.file.myqcloud.com/cursor/explosion.min.js"></script>
+  <!--pjax：防止跳转页面音乐暂停-->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+  <!--动态线条背景-->
+  <script type="text/javascript"
+   color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+</body>
+</html>

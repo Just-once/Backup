@@ -1,0 +1,114 @@
+<% var defaultBg = '#4d4d4d'; %>
+<div class="overlay" style="background: <%= theme.style && theme.style.header ? theme.style.header : defaultBg %>"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="<%=theme.root%>" class="profilepic">
+			<img src="<%=theme.avatar%>" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="<%=theme.root%>"><%=theme.author%></a></h1>
+		</hgroup>
+		<% if (theme.subtitle){ %>
+		<p class="header-subtitle"><%=theme.subtitle%></p>
+		<%}%>
+
+		<nav class="header-menu">
+			<ul>
+			<% for (var i in theme.menu){ %>
+				<li><a href="<%- url_for(theme.menu[i]) %>"><%= i %></a></li>
+	        <%}%>
+			</ul>
+		</nav>
+		<nav>
+    			总文章数 <%=site.posts.length%>
+		</nav>
+		<nav class="header-smart-menu">
+    		<% for (var i in theme.smart_menu){ %>
+    			<% if(theme.smart_menu[i]){ %>
+    			<a q-on="click: openSlider(e, '<%-i%>')" href="javascript:void(0)"><%= theme.smart_menu[i] %></a>
+    			<% } %>
+            <%}%>
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				<% for (var i in theme.subnav){ %>
+					<a class="<%= i %>" target="_blank" href="<%- url_for(theme.subnav[i]) %>" title="<%= i %>"><i class="icon-<%= i %>"></i></a>
+		        <%}%>
+			</div>
+
+		</nav>
+	</header>		
+</div>
+<% if(theme.aplayer.enable) { %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<!-- // 这里div的样式是笔者自己修改过的，你可以直接使用APlayer官方的原配置：<div id="aplayer"></div> -->
+<div id="aplayer" style="position:absolute;left;0;bottom:0;"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
+<script>
+  const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    autoplay: true, //自动播放
+    listFolded: true, //播放列表默认折叠
+    listMaxHeight: 90, //播放列表最大高度
+    order: 'list', //音频循环顺序, 可选值: 'list', 'random'
+    loop: 'all', //音频循环播放, 可选值: 'all', 'one', 'none'
+    theme: '#b7daff', //切换音频时的主题色e9e9e9，优先级低于audio.theme
+    preload: 'metadata', //音频预加载，可选值: 'none', 'metadata', 'auto'
+    mutex: true, //互斥，阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
+    lrcType: 3, //歌词格式，可选值：3（LRC文件歌词格式），1（JS字符串歌词格式）
+    volume: 1, //默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效
+    fixed: true, //吸底模式（fixed:true），迷你模式（mini:true），普通模式（注释此行或者设置fixed:false）
+    audio: [{
+        name: '心愿',
+        artist: '四个女生',
+        lrc: '/downloads/lrc/心愿-四个女生.lrc',
+        cover: 'http://p3.music.126.net/-QgrpnBhavRcLtaBaad5Lw==/52776558150270.jpg?param=300x300',
+        url: 'http://music.163.com/song/media/outer/url?id=379785.mp3'
+      },
+      {
+        name: '梦灯笼（中文填词抒情版）',
+        artist: '千陵安浅',
+        lrc: '/downloads/lrc/梦灯笼-千陵安浅.lrc',
+        cover: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000000qkESC1E1vmy.jpg',
+        url: 'http://music.163.com/song/media/outer/url?id=493656680.mp3'
+      },
+      {
+        name: 'Forever Young（童声版）',
+        artist: 'Various Artists',
+        lrc: '/downloads/lrc/Forever-Young.lrc',
+        cover: 'http://p3.music.126.net/FZX7XAjsmEPGyVOqm4H7aQ==/109951166361039007.jpg?param=300x300',
+        url: 'http://music.163.com/song/media/outer/url?id=33223284.mp3'
+      },
+      {
+        name: 'Hero',
+        artist: 'Family of the Year',
+        lrc: '/downloads/lrc/Hero-Family-Of-The-Year.lrc',
+        cover: 'http://p4.music.126.net/jmVyTbNWSQ_-xbwN6h4bBg==/109951164895694869.jpg?param=300x300',
+        url: 'http://music.163.com/song/media/outer/url?id=1439793163.mp3'
+      },
+      {
+        name: '下一个天亮',
+        artist: '郭静',
+        lrc: '/downloads/lrc/下一个天亮-郭静.lrc',
+        cover: 'http://p3.music.126.net/EJnwJffXPnVjxotouLRhug==/109951168105388410.jpg?param=300x300',
+        url: 'http://music.163.com/song/media/outer/url?id=27671253.mp3'
+      }
+    ]
+  });
+
+  //实现切换音频时，根据音频的封面图片自适应主题色
+  const colorThief = new ColorThief();
+  const setTheme = (index) => {
+    if (!ap.list.audios[index].theme) {
+      colorThief.getColorAsync(ap.list.audios[index].cover, function(color) {
+        ap.theme(`rgb(${color[0]}, ${color[1]}, ${color[2]})`, index);
+      });
+    }
+  };
+  setTheme(ap.list.index);
+  ap.on('listswitch', (data) => {
+    setTheme(data.index);
+  });
+</script>
+<% } %>

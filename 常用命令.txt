@@ -1,0 +1,13 @@
+\Blog\source\_posts\【博客存放路径】
+
+hexo new "文章名"  # 创建博客
+
+hexo s  # 本地部署预览
+
+hexo clean  # 清理缓存
+
+hexo g -d    # 上传到github
+
+git clone https://github.com/lsylovelmy/hexo-theme-macleaya.git themes/macleaya  # 主题下载==>修改博客目录下_config.yml文件中的主题theme
+
+cnpm \ yarn 替换 npm
