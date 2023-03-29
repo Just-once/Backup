@@ -21,5 +21,5 @@ git remote add origin git@github.com:Just-once/hugo-website.git        #把本�
 
 git pull --rebase origin main # 此为把最新版本的远程仓库源码更新到本地（不可缺失的步骤），如果有冲突则解决冲突，再执行后续操作
 
-【3】git push origin main # 因为我们在之前已经执行了clone命令，故已经在本地存储了账户名、密码，所以如果账号有更动，可以使用命令 git push -u origin master 替换上述命令，即加上-u，重新输入账号密码
+【3】git push origin master # 因为我们在之前已经执行了clone命令，故已经在本地存储了账户名、密码，所以如果账号有更动，可以使用命令 git push -u origin master 替换上述命令，即加上-u，重新输入账号密码
 【git push --force origin master】
