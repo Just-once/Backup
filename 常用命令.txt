@@ -11,3 +11,15 @@ hexo g -d    # 上传到github
 git clone https://github.com/lsylovelmy/hexo-theme-macleaya.git themes/macleaya  # 主题下载==>修改博客目录下_config.yml文件中的主题theme
 
 cnpm \ yarn 替换 npm
+
+【Hugo 上传代码到 Github】
+【1】git add .    # 将该目录下所有文件夹及文件提交到暂存区
+
+【2】git commit -m '提交注释，进行必要的说明'     #提交到版本库中
+
+git remote add origin git@github.com:Just-once/hugo-website.git        #把本地仓库与GitHub仓库进行关联
+
+git pull --rebase origin main # 此为把最新版本的远程仓库源码更新到本地（不可缺失的步骤），如果有冲突则解决冲突，再执行后续操作
+
+【3】git push origin main # 因为我们在之前已经执行了clone命令，故已经在本地存储了账户名、密码，所以如果账号有更动，可以使用命令 git push -u origin master 替换上述命令，即加上-u，重新输入账号密码
+【git push --force origin master】
